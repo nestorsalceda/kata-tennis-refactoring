@@ -21,31 +21,27 @@ class TennisGame1 {
   };
 
   getScore () {
-    if (this._isSameScore) return this._scoreForEvenPoints();
-    if (this._isAdvantage) return this._scoreForAdvantage();
+    if (this._isTied) return this._scoreForTied();
+    if (this._isGameEnded) return winFor(this._winnerPlayer)
+    if (this._isFinalPoint) return advantageFor(this._winnerPlayer)
 
     return `${scores[this.player1Points]}-${scores[this.player2Points]}`
   };
 
-  get _isSameScore() {
+  get _isTied() {
     return this.player1Points === this.player2Points;
   }
 
-  _scoreForEvenPoints() {
-    if (this.player1Points < 3) {
-      return scores[this.player1Points] + '-All'
-    }
-    return "Deuce"
-  }
-
-  get _isAdvantage() {
+  get _isFinalPoint() {
     return this.player1Points >= 4 || this.player2Points >= 4
   }
 
-  _scoreForAdvantage() {
-    const gameEnded = Math.abs(this.player1Points - this.player2Points) >= 2;
+  _scoreForTied() {
+    return (this.player1Points < 3) ? scores[this.player1Points] + '-All' : "Deuce"
+  }
 
-    return gameEnded ? winFor(this._winnerPlayer) : advantageFor(this._winnerPlayer)
+  get _isGameEnded() {
+    return this._isFinalPoint && Math.abs(this.player1Points - this.player2Points) >= 2;
   }
 
   get _winnerPlayer() {
