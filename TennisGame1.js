@@ -7,41 +7,41 @@ const scores = {
 
 class Scores {
   static win (player) {
-    return `Win for ${player.name}`;
+    return `Win for ${player.name}`
   }
 
   static advantage (player) {
-    return `Advantage ${player.name}`;
+    return `Advantage ${player.name}`
   }
 
   static points (player1, player2) {
     return `${scores[player1.points]}-${scores[player2.points]}`
   }
 
-  static tie(player1, player2) {
+  static tie (player1, player2) {
     return (player1.isThirtyOrLess) ? scores[player1.points] + '-All' : "Deuce"
   }
 }
 
 class Player {
-  constructor(name) {
+  constructor (name) {
     this.name = name
     this.points = 0
   }
 
-  addPoint() {
+  addPoint () {
     this.points++
   }
 
-  get isFinalPoint() {
+  get isFinalPoint () {
     return this.points > 3
   }
 
-  get isThirtyOrLess() {
-    return this.points < 3;
+  get isThirtyOrLess () {
+    return this.points < 3
   }
 
-  isTied(player) {
+  isTied (player) {
     return this.points == player.points
   }
 }
@@ -49,22 +49,17 @@ class Player {
 const DIFFERENCE_POINTS_THRESHOLD = 2
 
 class TennisGame1 {
-
   constructor (player1Name, player2Name) {
     this.player1 = new Player(player1Name)
     this.player2 = new Player(player2Name)
-  };
-
-  wonPoint (playerName) {
-    this._playerWithName(playerName).addPoint();
-  };
-
-  _playerWithName(playerName) {
-    return playerName === this.player1.name ? this.player1 : this.player2;
   }
 
-  get _winningPlayer() {
-    return this.player1.points > this.player2.points ? this.player1: this.player2;
+  wonPoint (playerName) {
+    this._playerWithName(playerName).addPoint()
+  }
+
+  _playerWithName (playerName) {
+    return playerName === this.player1.name ? this.player1 : this.player2
   }
 
   getScore () {
@@ -73,17 +68,21 @@ class TennisGame1 {
     if (this._isFinalPoint) return Scores.advantage(this._winningPlayer)
 
     return Scores.points(this.player1, this.player2)
-  };
+  }
 
-  get _isFinalPoint() {
+  get _isGameEnded () {
+    return this._isFinalPoint && Math.abs(this.player1.points - this.player2.points) >= DIFFERENCE_POINTS_THRESHOLD
+  }
+
+  get _isFinalPoint () {
     return this.player1.isFinalPoint || this.player2.isFinalPoint
   }
 
-  get _isGameEnded() {
-    return this._isFinalPoint && Math.abs(this.player1.points - this.player2.points) >= DIFFERENCE_POINTS_THRESHOLD;
+  get _winningPlayer () {
+    return this.player1.points > this.player2.points ? this.player1: this.player2
   }
-};
+}
 
 if (typeof window === "undefined") {
-  module.exports = TennisGame1;
+  module.exports = TennisGame1
 }
