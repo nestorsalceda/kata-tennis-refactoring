@@ -8,9 +8,9 @@ class TennisGame1 {
 
   wonPoint (playerName) {
     if (playerName === "player1")
-      this.m_score1 += 1;
+      this.m_score1++;
     else
-      this.m_score2 += 1;
+      this.m_score2++;
   };
 
   getScore () {
