@@ -21,30 +21,30 @@ class TennisGame1 {
   };
 
   getScore () {
-    var score = "";
-    var tempScore = 0;
     if (this.m_score1 === this.m_score2) {
       if (this.m_score1 < 2) {
-        score = scores[this.m_score1] + '-All'
+        return scores[this.m_score1] + '-All'
       }
-      else {
-        score = "Deuce"
-      }
-    } else if (this.m_score1 >= 4 || this.m_score2 >= 4) {
+      return "Deuce"
+    }
+
+    if (this.m_score1 >= 4 || this.m_score2 >= 4) {
       var minusResult = this.m_score1 - this.m_score2;
-      if (minusResult === 1) score = "Advantage player1";
-      else if (minusResult === -1) score = "Advantage player2";
-      else if (minusResult >= 2) score = "Win for player1";
-      else score = "Win for player2";
-    } else {
-      for (var i = 1; i < 3; i++) {
-        if (i === 1) tempScore = this.m_score1;
-        else {
-          score += "-";
-          tempScore = this.m_score2;
-        }
-        score += scores[tempScore]
+      if (minusResult === 1) return "Advantage player1";
+      if (minusResult === -1) return "Advantage player2";
+      if (minusResult >= 2) return "Win for player1";
+      return "Win for player2";
+    }
+
+    let score = "";
+    let tempScore = 0;
+    for (var i = 1; i < 3; i++) {
+      if (i === 1) tempScore = this.m_score1;
+      else {
+        score += "-";
+        tempScore = this.m_score2;
       }
+      score += scores[tempScore]
     }
     return score;
   };
