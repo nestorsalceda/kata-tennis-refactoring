@@ -5,9 +5,23 @@ const scores = {
   3: "Forty"
 }
 
-const winFor = player => `Win for ${player.name}`;
-const advantageFor = player => `Advantage ${player.name}`;
-const printPoints = (player1, player2) => `${scores[player1.points]}-${scores[player2.points]}`
+class Scores {
+  static win (player) {
+    return `Win for ${player.name}`;
+  }
+
+  static advantage (player) {
+    return `Advantage ${player.name}`;
+  }
+
+  static points (player1, player2) {
+    return `${scores[player1.points]}-${scores[player2.points]}`
+  }
+
+  static tie(player1, player2) {
+    return (player1.isThirtyOrLess) ? scores[player1.points] + '-All' : "Deuce"
+  }
+}
 
 class Player {
   constructor(name) {
@@ -20,7 +34,11 @@ class Player {
   }
 
   get isFinalPoint() {
-    return this.points >= 4
+    return this.points > 3
+  }
+
+  get isThirtyOrLess() {
+    return this.points < 3;
   }
 
   isTied(player) {
@@ -50,26 +68,20 @@ class TennisGame1 {
   }
 
   getScore () {
-    if (this.player1.isTied(this.player2)) return this._scoreForTied();
-    if (this._isGameEnded) return winFor(this._winningPlayer)
-    if (this._isFinalPoint) return advantageFor(this._winningPlayer)
+    if (this.player1.isTied(this.player2)) return Scores.tie(this.player1, this.player2)
+    if (this._isGameEnded) return Scores.win(this._winningPlayer)
+    if (this._isFinalPoint) return Scores.advantage(this._winningPlayer)
 
-    return printPoints(this.player1, this.player2)
+    return Scores.points(this.player1, this.player2)
   };
 
   get _isFinalPoint() {
     return this.player1.isFinalPoint || this.player2.isFinalPoint
   }
 
-  _scoreForTied() {
-    return (this.player1.points < 3) ? scores[this.player1.points] + '-All' : "Deuce"
-  }
-
   get _isGameEnded() {
     return this._isFinalPoint && Math.abs(this.player1.points - this.player2.points) >= DIFFERENCE_POINTS_THRESHOLD;
   }
-
-
 };
 
 if (typeof window === "undefined") {
