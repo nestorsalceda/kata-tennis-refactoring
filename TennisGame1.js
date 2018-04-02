@@ -1,3 +1,10 @@
+const scores = {
+  0: "Love",
+  1: "Fifteen",
+  2: "Thirty",
+  3: "Forty"
+}
+
 class TennisGame1 {
   constructor(player1Name, player2Name) {
     this.m_score1 = 0;
@@ -44,20 +51,7 @@ class TennisGame1 {
           score += "-";
           tempScore = this.m_score2;
         }
-        switch (tempScore) {
-          case 0:
-            score += "Love";
-            break;
-          case 1:
-            score += "Fifteen";
-            break;
-          case 2:
-            score += "Thirty";
-            break;
-          case 3:
-            score += "Forty";
-            break;
-        }
+        score += scores[tempScore]
       }
     }
     return score;
