@@ -20,11 +20,11 @@ class TennisGame1 {
   getScore () {
     if (this._isSameScore) return this._scoreForEvenPoints();
 
-    if (this.player1Points >= 4 || this.player2Points >= 4) {
-      var minusResult = this.player1Points - this.player2Points;
-      if (minusResult === 1) return "Advantage player1";
-      if (minusResult === -1) return "Advantage player2";
-      if (minusResult >= 2) return "Win for player1";
+    if (this._isAdvantage) {
+      const difference = this.player1Points - this.player2Points;
+      if (difference === 1) return "Advantage player1";
+      if (difference === -1) return "Advantage player2";
+      if (difference >= 2) return "Win for player1";
       return "Win for player2";
     }
 
@@ -50,6 +50,10 @@ class TennisGame1 {
       return scores[this.player1Points] + '-All'
     }
     return "Deuce"
+  }
+
+  get _isAdvantage() {
+    return this.player1Points >= 4 || this.player2Points >= 4
   }
 };
 
