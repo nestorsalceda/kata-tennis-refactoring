@@ -7,24 +7,24 @@ const scores = {
 
 class TennisGame1 {
   constructor (player1Name, player2Name) {
-    this.m_score1 = 0;
-    this.m_score2 = 0;
+    this.player1Points = 0;
+    this.player2Points = 0;
     this.player1Name = player1Name;
     this.player2Name = player2Name;
   };
 
   wonPoint (playerName) {
     if (playerName === this.player1Name)
-      this.m_score1++;
+      this.player1Points++;
     else
-      this.m_score2++;
+      this.player2Points++;
   };
 
   getScore () {
     if (this._isSameScore()) return this._scoreForEvenPoints();
 
-    if (this.m_score1 >= 4 || this.m_score2 >= 4) {
-      var minusResult = this.m_score1 - this.m_score2;
+    if (this.player1Points >= 4 || this.player2Points >= 4) {
+      var minusResult = this.player1Points - this.player2Points;
       if (minusResult === 1) return "Advantage player1";
       if (minusResult === -1) return "Advantage player2";
       if (minusResult >= 2) return "Win for player1";
@@ -34,10 +34,10 @@ class TennisGame1 {
     let score = "";
     let tempScore = 0;
     for (var i = 1; i < 3; i++) {
-      if (i === 1) tempScore = this.m_score1;
+      if (i === 1) tempScore = this.player1Points;
       else {
         score += "-";
-        tempScore = this.m_score2;
+        tempScore = this.player2Points;
       }
       score += scores[tempScore]
     }
@@ -45,12 +45,12 @@ class TennisGame1 {
   };
 
   _isSameScore() {
-    return this.m_score1 === this.m_score2;
+    return this.player1Points === this.player2Points;
   }
 
   _scoreForEvenPoints() {
-    if (this.m_score1 < 2) {
-      return scores[this.m_score1] + '-All'
+    if (this.player1Points < 2) {
+      return scores[this.player1Points] + '-All'
     }
     return "Deuce"
   }
