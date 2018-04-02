@@ -6,7 +6,7 @@ const scores = {
 }
 
 class TennisGame1 {
-  constructor(player1Name, player2Name) {
+  constructor (player1Name, player2Name) {
     this.m_score1 = 0;
     this.m_score2 = 0;
     this.player1Name = player1Name;
