@@ -7,7 +7,7 @@ class TennisGame1 {
   };
 
   wonPoint (playerName) {
-    if (playerName === "player1")
+    if (playerName === this.player1Name)
       this.m_score1++;
     else
       this.m_score2++;
