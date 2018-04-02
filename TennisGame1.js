@@ -46,7 +46,7 @@ class TennisGame1 {
   }
 
   _scoreForEvenPoints() {
-    if (this.player1Points < 2) {
+    if (this.player1Points < 3) {
       return scores[this.player1Points] + '-All'
     }
     return "Deuce"
