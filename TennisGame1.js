@@ -21,7 +21,7 @@ class TennisGame1 {
   };
 
   getScore () {
-    if (this._isSameScore()) return this._scoreForEvenPoints();
+    if (this._isSameScore) return this._scoreForEvenPoints();
 
     if (this.player1Points >= 4 || this.player2Points >= 4) {
       var minusResult = this.player1Points - this.player2Points;
@@ -44,7 +44,7 @@ class TennisGame1 {
     return score;
   };
 
-  _isSameScore() {
+  get _isSameScore() {
     return this.player1Points === this.player2Points;
   }
 
