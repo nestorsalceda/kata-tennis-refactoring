@@ -24,17 +24,7 @@ class TennisGame1 {
     if (this._isSameScore) return this._scoreForEvenPoints();
     if (this._isAdvantage) return this._scoreForAdvantage();
 
-    let score = "";
-    let tempScore = 0;
-    for (var i = 1; i < 3; i++) {
-      if (i === 1) tempScore = this.player1Points;
-      else {
-        score += "-";
-        tempScore = this.player2Points;
-      }
-      score += scores[tempScore]
-    }
-    return score;
+    return `${scores[this.player1Points]}-${scores[this.player2Points]}`
   };
 
   get _isSameScore() {
