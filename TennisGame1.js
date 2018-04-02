@@ -5,6 +5,9 @@ const scores = {
   3: "Forty"
 }
 
+const winFor = player => `Win for ${player}`;
+const advantageFor = player => `Advantage ${player}`;
+
 class TennisGame1 {
   constructor (player1Name, player2Name) {
     this.player1Points = 0;
@@ -49,12 +52,20 @@ class TennisGame1 {
     return this.player1Points >= 4 || this.player2Points >= 4
   }
 
+  get _isPlayer1Winning() {
+    return this.player1Points > this.player2Points
+  }
+
   _scoreForAdvantage() {
-    const difference = this.player1Points - this.player2Points;
-    if (difference === 1) return "Advantage player1";
-    if (difference === -1) return "Advantage player2";
-    if (difference >= 2) return "Win for player1";
-    return "Win for player2";
+    const difference = Math.abs(this.player1Points - this.player2Points);
+    const gameEnded = difference >= 2
+
+    if (gameEnded) {
+      if (this._isPlayer1Winning) return winFor(this.player1Name);
+      return winFor(this.player2Name);
+    }
+    if (this._isPlayer1Winning) return advantageFor(this.player1Name);
+    return advantageFor(this.player2Name);
   }
 };
 
