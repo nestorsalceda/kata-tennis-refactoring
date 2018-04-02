@@ -21,12 +21,7 @@ class TennisGame1 {
   };
 
   getScore () {
-    if (this.m_score1 === this.m_score2) {
-      if (this.m_score1 < 2) {
-        return scores[this.m_score1] + '-All'
-      }
-      return "Deuce"
-    }
+    if (this._isSameScore()) return this._scoreForEvenPoints();
 
     if (this.m_score1 >= 4 || this.m_score2 >= 4) {
       var minusResult = this.m_score1 - this.m_score2;
@@ -48,6 +43,17 @@ class TennisGame1 {
     }
     return score;
   };
+
+  _isSameScore() {
+    return this.m_score1 === this.m_score2;
+  }
+
+  _scoreForEvenPoints() {
+    if (this.m_score1 < 2) {
+      return scores[this.m_score1] + '-All'
+    }
+    return "Deuce"
+  }
 };
 
 if (typeof window === "undefined") {
