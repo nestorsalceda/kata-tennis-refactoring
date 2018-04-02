@@ -14,10 +14,7 @@ class TennisGame1 {
   };
 
   wonPoint (playerName) {
-    if (playerName === this.player1Name)
-      this.player1Points++;
-    else
-      this.player2Points++;
+    playerName === this.player1Name ? this.player1Points++ : this.player2Points++;
   };
 
   getScore () {
