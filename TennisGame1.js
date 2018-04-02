@@ -42,20 +42,14 @@ class TennisGame1 {
     return this.player1Points >= 4 || this.player2Points >= 4
   }
 
-  get _isPlayer1Winning() {
-    return this.player1Points > this.player2Points
+  _scoreForAdvantage() {
+    const gameEnded = Math.abs(this.player1Points - this.player2Points) >= 2;
+
+    return gameEnded ? winFor(this._winnerPlayer) : advantageFor(this._winnerPlayer)
   }
 
-  _scoreForAdvantage() {
-    const difference = Math.abs(this.player1Points - this.player2Points);
-    const gameEnded = difference >= 2
-
-    if (gameEnded) {
-      if (this._isPlayer1Winning) return winFor(this.player1Name);
-      return winFor(this.player2Name);
-    }
-    if (this._isPlayer1Winning) return advantageFor(this.player1Name);
-    return advantageFor(this.player2Name);
+  get _winnerPlayer() {
+    return this.player1Points > this.player2Points ? this.player1Name : this.player2Name;
   }
 };
 
